@@ -4,6 +4,7 @@
  */
 package persistencia;
 
+import Excepciones.ExcepcionArchivo;
 import Excepciones.ExcepcionEscritura;
 import Excepciones.ExcepcionLectura;
 import java.util.List;
@@ -14,9 +15,10 @@ import modelo.AireAcondicionado;
  * @author Jairo F
  */
 public interface IAiresCrud {
-    void registrarAire(AireAcondicionado a) throws ExcepcionEscritura;
-    List<AireAcondicionado> leer() throws ExcepcionLectura;
-    AireAcondicionado buscar(AireAcondicionado a)throws ExcepcionLectura;
-    AireAcondicionado eliminar(AireAcondicionado a)throws ExcepcionEscritura, ExcepcionLectura;
+    void registrarAire(AireAcondicionado a) throws ExcepcionArchivo;
+    List<AireAcondicionado> leer() throws ExcepcionArchivo;
+    AireAcondicionado buscar(AireAcondicionado a)throws ExcepcionArchivo;
+    AireAcondicionado eliminar(AireAcondicionado a)throws ExcepcionArchivo;
+    
     
 }

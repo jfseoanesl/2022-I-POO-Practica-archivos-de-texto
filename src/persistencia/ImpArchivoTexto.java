@@ -4,6 +4,7 @@
  */
 package persistencia;
 
+import Excepciones.ExcepcionArchivo;
 import Excepciones.ExcepcionEscritura;
 import Excepciones.ExcepcionLectura;
 import java.io.*;
@@ -31,7 +32,7 @@ public class ImpArchivoTexto implements IAiresCrud {
     }
 
     @Override
-    public void registrarAire(AireAcondicionado a) throws ExcepcionEscritura {
+    public void registrarAire(AireAcondicionado a) throws ExcepcionArchivo {
         PrintWriter pw = null;
         try {
 
@@ -40,7 +41,7 @@ public class ImpArchivoTexto implements IAiresCrud {
             pw.println(a.getDataFileFormat());
 
         } catch (IOException e) {
-            throw new ExcepcionEscritura("Error al abrir o crear archivo en modo escritura");
+            throw new ExcepcionArchivo("Error al abrir o crear archivo en modo escritura");
         } finally {
             if (pw != null) {
                 pw.close();
@@ -59,7 +60,7 @@ public class ImpArchivoTexto implements IAiresCrud {
     }
 
     @Override
-    public List<AireAcondicionado> leer() throws ExcepcionLectura {
+    public List<AireAcondicionado> leer() throws ExcepcionArchivo {
         List<AireAcondicionado> lista;
         try {
             this.modoLectura = new Scanner(this.archivo);
@@ -71,7 +72,7 @@ public class ImpArchivoTexto implements IAiresCrud {
             }
             return lista;
         } catch (FileNotFoundException e) {
-            throw new ExcepcionLectura("Error al leer archivo en modo lectura");
+            throw new ExcepcionArchivo("Error al leer archivo en modo lectura");
            
         }
         finally{
@@ -82,7 +83,7 @@ public class ImpArchivoTexto implements IAiresCrud {
     }
 
     @Override
-    public AireAcondicionado buscar(AireAcondicionado a) throws ExcepcionLectura {
+    public AireAcondicionado buscar(AireAcondicionado a) throws ExcepcionArchivo {
         AireAcondicionado buscado = null;
         try {
             this.modoLectura = new Scanner(this.archivo);
@@ -95,7 +96,7 @@ public class ImpArchivoTexto implements IAiresCrud {
             }
             return null;
         } catch (FileNotFoundException e) {
-            throw new ExcepcionLectura("Error al buscar archivo en modo lectura");
+            throw new ExcepcionArchivo("Error al buscar archivo en modo lectura");
         }
         finally{
             if(this.modoLectura!=null)
@@ -116,7 +117,7 @@ public class ImpArchivoTexto implements IAiresCrud {
     }
 
     @Override
-    public AireAcondicionado eliminar(AireAcondicionado a) throws ExcepcionEscritura, ExcepcionLectura{
+    public AireAcondicionado eliminar(AireAcondicionado a) throws ExcepcionArchivo{
         AireAcondicionado eliminado = null;
         ImpArchivoTexto archivoTemporal = new ImpArchivoTexto("Aires.tmp");
         try {
@@ -135,13 +136,10 @@ public class ImpArchivoTexto implements IAiresCrud {
             this.renombrarArchivo(archivoTemporal.archivo);
             return eliminado;
         } catch (FileNotFoundException e) {
-            throw new ExcepcionLectura("Error al buscar archivo en modo lectura");
-        }
-        catch(ExcepcionEscritura e){
-            throw e;
+            throw new ExcepcionArchivo("Error al buscar archivo en modo lectura");
         }
         catch(IOException e){
-            throw new ExcepcionEscritura(e.getMessage());
+            throw new ExcepcionArchivo(e.getMessage());
         }
         finally{
             if(this.modoLectura!=null)

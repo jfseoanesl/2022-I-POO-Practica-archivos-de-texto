@@ -4,8 +4,7 @@
  */
 package vista;
 
-import Excepciones.ExcepcionEscritura;
-import Excepciones.ExcepcionLectura;
+import Excepciones.ExcepcionArchivo;
 import java.util.List;
 import modelo.AireAcondicionado;
 import modelo.ListaAiresCrud;
@@ -29,7 +28,7 @@ public class Principal {
             catalogo.registrarAire(b);
             catalogo.registrarAire(c);
             System.out.println("Caso 1. Registro de datos");
-        } catch (ExcepcionEscritura e) {
+        } catch (ExcepcionArchivo e) {
             System.out.println(e.getMessage());
         }
 
@@ -39,7 +38,7 @@ public class Principal {
             for(AireAcondicionado i:lista){
                 System.out.println(i);
             }
-        } catch (ExcepcionLectura e) {
+        } catch (ExcepcionArchivo e) {
             System.out.println(e.getMessage());
         }
         
@@ -53,7 +52,7 @@ public class Principal {
             else{
                 System.out.println("!! Resultado: No encontrado ¡¡");
             }
-        } catch (ExcepcionLectura e) {
+        } catch (ExcepcionArchivo e) {
             System.out.println(e.getMessage());
         }
         
@@ -67,7 +66,7 @@ public class Principal {
             else{
                 System.out.println("!! Resultado: No encontrado ¡¡");
             }
-        } catch (ExcepcionLectura | ExcepcionEscritura e) {
+        } catch (ExcepcionArchivo e) {
             System.out.println(e.getMessage());
         }
         
@@ -81,7 +80,7 @@ public class Principal {
             else{
                 System.out.println("!! Resultado: No encontrado ¡¡");
             }
-        } catch (ExcepcionLectura e) {
+        } catch (ExcepcionArchivo e) {
             System.out.println(e.getMessage());
         }
     }

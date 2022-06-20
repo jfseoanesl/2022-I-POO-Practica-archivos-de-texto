@@ -4,11 +4,11 @@
  */
 package modelo;
 
-import Excepciones.ExcepcionEscritura;
-import Excepciones.ExcepcionLectura;
+import Excepciones.ExcepcionArchivo;
 import java.util.ArrayList;
 import java.util.List;
 import persistencia.IAiresCrud;
+import persistencia.ImpArchivoObjeto;
 import persistencia.ImpArchivoTexto;
 
 /**
@@ -16,26 +16,27 @@ import persistencia.ImpArchivoTexto;
  * @author Jairo F
  */
 public class ListaAiresCrud implements IAiresCrud {
-    IAiresCrud datos = new ImpArchivoTexto();
-
+    private IAiresCrud datos = new ImpArchivoTexto();
+    //private IAiresCrud datos = new ImpArchivoObjeto();
+        
     @Override
-    public void registrarAire(AireAcondicionado a) throws ExcepcionEscritura {
+    public void registrarAire(AireAcondicionado a) throws ExcepcionArchivo {
         this.datos.registrarAire(a);
     }
 
     @Override
-    public List<AireAcondicionado> leer() throws ExcepcionLectura {
+    public List<AireAcondicionado> leer() throws ExcepcionArchivo {
         List<AireAcondicionado> lista = new ArrayList(this.datos.leer());
         return lista;
     }
 
     @Override
-    public AireAcondicionado buscar(AireAcondicionado a) throws ExcepcionLectura {
+    public AireAcondicionado buscar(AireAcondicionado a) throws ExcepcionArchivo {
         return this.datos.buscar(a);
     }
 
     @Override
-    public AireAcondicionado eliminar(AireAcondicionado a) throws ExcepcionEscritura, ExcepcionLectura {
+    public AireAcondicionado eliminar(AireAcondicionado a) throws ExcepcionArchivo {
         return this.datos.eliminar(a);
     }
 }

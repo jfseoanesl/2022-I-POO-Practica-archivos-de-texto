@@ -4,11 +4,13 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jairo F
  */
-public class AireAcondicionado {
+public class AireAcondicionado implements Serializable{
     private int nSerial;
     private String marca;
     private int nCaballos;
