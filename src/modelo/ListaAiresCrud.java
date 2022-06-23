@@ -8,16 +8,15 @@ import Excepciones.ExcepcionArchivo;
 import java.util.ArrayList;
 import java.util.List;
 import persistencia.IAiresCrud;
-import persistencia.ImpArchivoObjeto;
-import persistencia.ImpArchivoTexto;
+import persistencia.*;
 
 /**
  *
  * @author Jairo F
  */
 public class ListaAiresCrud implements IAiresCrud {
-    private IAiresCrud datos = new ImpArchivoTexto();
-    //private IAiresCrud datos = new ImpArchivoObjeto();
+    //private IAiresCrud datos = new ImpArchivoTexto();
+    private IAiresCrud datos = new ImpArchivoObjeto();
         
     @Override
     public void registrarAire(AireAcondicionado a) throws ExcepcionArchivo {

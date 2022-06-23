@@ -16,7 +16,10 @@ import modelo.ListaAiresCrud;
 public class Principal {
 
     public static void main(String[] args) {
-
+        
+        new GuiInicio();
+        //new GuiRegistro(null, true);
+         /*
         AireAcondicionado a = new AireAcondicionado(123, "Whirpool", 1200, 16.5);
         AireAcondicionado b = new AireAcondicionado(456, "Phillip", 1200, 12.5);
         AireAcondicionado c = new AireAcondicionado(789, "Samsung", 600, 18);
@@ -83,5 +86,6 @@ public class Principal {
         } catch (ExcepcionArchivo e) {
             System.out.println(e.getMessage());
         }
+        */
     }
 }
