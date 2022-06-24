@@ -166,5 +166,18 @@ public class ImpArchivoObjeto implements IAiresCrud {
     public void setModoEscritura(FileOutputStream modoEscritura) {
         this.modoEscritura = modoEscritura;
     }
+    
+     public List<AireAcondicionado> filtrar(int serial) throws ExcepcionArchivo{
+         List<AireAcondicionado> lista = this.cargarArchivo();
+         List<AireAcondicionado> listaFiltrada = new ArrayList();
+         for(AireAcondicionado a: lista){
+             String serialLista = String.valueOf(a.getnSerial());
+             String serialFiltrada = String.valueOf(serial);
+             if(serialLista.contains(serialFiltrada)){
+                 listaFiltrada.add(a);
+             }
+         }
+         return listaFiltrada;         
+     }
 
 }

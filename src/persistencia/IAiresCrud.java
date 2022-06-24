@@ -19,6 +19,7 @@ public interface IAiresCrud {
     List<AireAcondicionado> leer() throws ExcepcionArchivo;
     AireAcondicionado buscar(AireAcondicionado a)throws ExcepcionArchivo;
     AireAcondicionado eliminar(AireAcondicionado a)throws ExcepcionArchivo;
+    List<AireAcondicionado> filtrar(int serial) throws ExcepcionArchivo;
     
     
 }

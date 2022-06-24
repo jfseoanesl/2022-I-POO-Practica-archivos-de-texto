@@ -1,17 +1,22 @@
 package vista;
 
+import Excepciones.ExcepcionArchivo;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
+import modelo.AireAcondicionado;
+import modelo.ListaAiresCrud;
 
 /**
  *
  * @author Jairo F
  */
-public class GuiRegistro extends JDialog {
+public class GuiRegistro extends JDialog implements ActionListener {
     private JPanel panelDatos, panelOpciones, panelPrincipal, panelTmp;
     private JLabel lbSerial, lbMarca, lbCaballos, lbTmp;
     private JButton btnNuevo, btnGuardar, btnCancelar;
@@ -21,9 +26,11 @@ public class GuiRegistro extends JDialog {
     private ButtonGroup grupoOpciones;
     private JFormattedTextField txtTmp;
     private Container contenedor;
+    private ListaAiresCrud modelo;
 
     public GuiRegistro(Frame frame, boolean bln) {
         super(frame, bln);
+        this.modelo = new ListaAiresCrud();
         this.setTitle("Catalogo de aires - Registro - Version 1.0");
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.iniciarComponentes();
@@ -31,7 +38,11 @@ public class GuiRegistro extends JDialog {
         //this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        
+       
     }
+    
+    
     
     private void iniciarComponentes(){
         
@@ -70,6 +81,7 @@ public class GuiRegistro extends JDialog {
         this.txtTmp = new JFormattedTextField(new Integer(16));
         
         this.rb1=new JRadioButton("900 btu");
+        this.rb1.setSelected(true);
         this.rb2=new JRadioButton("1200 btu");
         
         this.grupoOpciones = new ButtonGroup();
@@ -104,8 +116,13 @@ public class GuiRegistro extends JDialog {
         this.panelOpciones.setLayout(new GridLayout(3,1,5,5));
         
         this.btnNuevo = new JButton("Nuevo");
+        this.btnNuevo.addActionListener(this);
+        
         this.btnGuardar = new JButton("Guardar");
+        this.btnGuardar.addActionListener(this);
+        
         this.btnCancelar= new JButton("Cancelar");
+        this.btnCancelar.addActionListener(this);
         
         this.panelOpciones.add(this.btnNuevo);
         this.panelOpciones.add(this.btnGuardar);
@@ -117,6 +134,60 @@ public class GuiRegistro extends JDialog {
     
     
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        if(e.getSource()==this.btnNuevo){
+            //JOptionPane.showMessageDialog(this, "Click en boton nuevo", "Informe ActionListener", JOptionPane.INFORMATION_MESSAGE);
+            Mensaje.mostrar(this, "Informe ActionListener", "Click en boton nuevo", ABORT);
+        }
+        
+        if(e.getSource()==this.btnGuardar){
+            //JOptionPane.showMessageDialog(this, "Click en boton Guardar", "Informe ActionListener", JOptionPane.ERROR_MESSAGE);
+            this.guardarDatos();
+        }
+        
+        if(e.getSource()==this.btnCancelar){
+            this.limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Click en boton Cancelar", "Informe ActionListener", JOptionPane.QUESTION_MESSAGE);
+        }
+        
+        
+    }
     
+    private void guardarDatos(){
+        try{
+            AireAcondicionado aire = this.leerDatos();
+            this.modelo.registrarAire(aire);
+            Mensaje.mostrar(this, "Exito", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+            
+        }catch(ExcepcionArchivo e){
+            Mensaje.mostrar(this, "Error", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+        }    
+        
+    }
+    
+    
+    private AireAcondicionado leerDatos(){
+        
+        int serie = Integer.valueOf(this.txtSerial.getText());
+        String marca = this.cmbMarca.getSelectedItem().toString();
+        int caballos;
+        if(this.rb1.isSelected()){
+            caballos = 600;
+        }
+        else{
+            caballos = 1200;
+        }
+        double tmp = (int)this.txtTmp.getValue();
+                
+        return new AireAcondicionado(serie, marca, caballos, tmp);
+    
+    }
+    
+    private void limpiarCampos(){
+        this.txtSerial.setText(null);
+    }
     
 }

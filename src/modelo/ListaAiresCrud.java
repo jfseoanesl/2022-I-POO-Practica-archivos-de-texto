@@ -15,8 +15,8 @@ import persistencia.*;
  * @author Jairo F
  */
 public class ListaAiresCrud implements IAiresCrud {
-    //private IAiresCrud datos = new ImpArchivoTexto();
-    private IAiresCrud datos = new ImpArchivoObjeto();
+    private IAiresCrud datos = new ImpArchivoTexto();
+   // private IAiresCrud datos = new ImpArchivoObjeto();
         
     @Override
     public void registrarAire(AireAcondicionado a) throws ExcepcionArchivo {
@@ -37,5 +37,10 @@ public class ListaAiresCrud implements IAiresCrud {
     @Override
     public AireAcondicionado eliminar(AireAcondicionado a) throws ExcepcionArchivo {
         return this.datos.eliminar(a);
+    }
+
+    @Override
+    public List<AireAcondicionado> filtrar(int i) throws ExcepcionArchivo {
+        return this.datos.filtrar(i);
     }
 }

@@ -189,4 +189,20 @@ public class ImpArchivoTexto implements IAiresCrud {
         this.modoLectura = modoLectura;
     }
 
+    @Override
+    public List<AireAcondicionado> filtrar(int serial) throws ExcepcionArchivo {
+         List<AireAcondicionado> lista = this.leer();
+         List<AireAcondicionado> listaFiltrada = new ArrayList();
+         for(AireAcondicionado a: lista){
+             String serialLista = String.valueOf(a.getnSerial());
+             String serialFiltrada = String.valueOf(serial);
+             if(serialLista.contains(serialFiltrada)){
+                 listaFiltrada.add(a);
+             }
+         }
+         return listaFiltrada; 
+    }
+    
+    
+
 }
